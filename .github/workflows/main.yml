@@ -1,6 +1,6 @@
 name: Deploy to neocities
 
-# only run on changes to main
+# only run on changes to main. Use main or master depending on whatever your default branch is called.
 on:
   push:
     branches:
@@ -15,11 +15,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     # When the dist_dir is ready, deploy it to neocities
     - name: Deploy to Neocities
-      uses: bcomnes/deploy-to-neocities@v2.0.2
+      uses: bcomnes/deploy-to-neocities@v3
       with:
         api_token: ${{ secrets.NEOCITIES_API_TOKEN }}
         cleanup: true
+        neocities_supporter: false # set this to true if you have a supporter account and want to bypass unsuported files filter.
         dist_dir: public
